@@ -15,18 +15,18 @@ namespace TeaGames.Unity.UIFramework.Runtime
         protected VisualElement popup;
         protected Label label;
 
-        // TODO: make BEM naming
-        private const string HideStyle = "popup-hide";
-        private const string ShowStyle = "popup-show";
-        private const string PopupQuery = "popup";
-        private const string TextQuery = "text";
+        [Header("Popup")]
+        [SerializeField] private string _popupClass = "popup";
+        [SerializeField] private string _labelClass = "popup__label";
+        [SerializeField] private string _openedClass = "popup--opened";
+        [SerializeField] private string _hiddenClass = "popup--hidden";
 
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
 
-            popup = root.Q(PopupQuery);
-            label = root.Q<Label>(TextQuery);
+            popup = root.Q(_popupClass);
+            label = root.Q<Label>(_labelClass);
         }
 
         public void Show(System.Action onComplete = null)
@@ -38,18 +38,18 @@ namespace TeaGames.Unity.UIFramework.Runtime
         public void Hide(System.Action onComplete = null)
         {
             popup.RegisterCallback<TransitionEndEvent>(e => onComplete?.Invoke());
-            popup.RemoveFromClassList(ShowStyle);
-            popup.AddToClassList(HideStyle);
+            popup.RemoveFromClassList(_openedClass);
+            popup.AddToClassList(_hiddenClass);
         }
 
         private IEnumerator ShowCoroutine()
         {
-            popup.AddToClassList(HideStyle);
+            popup.AddToClassList(_hiddenClass);
 
             yield return new WaitForEndOfFrame();
 
-            popup.RemoveFromClassList(HideStyle);
-            popup.AddToClassList(ShowStyle);
+            popup.RemoveFromClassList(_hiddenClass);
+            popup.AddToClassList(_openedClass);
         }
     }
 }

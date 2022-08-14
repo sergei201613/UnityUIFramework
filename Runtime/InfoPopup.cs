@@ -6,7 +6,7 @@ namespace TeaGames.Unity.UIFramework.Runtime
     {
         private Button _okButton;
 
-        private const string OkButtonQuery = "ok";
+        private const string OkButtonQuery = "info-popup__ok-button";
 
         public override void Init(UIManager uiManager)
         {

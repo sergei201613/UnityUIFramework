@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace TeaGames.Unity.UIFramework.Runtime
@@ -10,15 +11,16 @@ namespace TeaGames.Unity.UIFramework.Runtime
         protected Button cancleButton;
         protected Button confirmButton;
 
-        private const string ConfirmButtonQuery = "confirm";
-        private const string CancleButtonQuery = "cancle";
+        [Header("Confirm Popup")]
+        [SerializeField] private string _confirmButtonClass = "confirm-popup__confirm-button";
+        [SerializeField] private string _cancleButtonClass = "confirm-popup__cancle-button";
 
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
 
-            confirmButton = root.Q<Button>(ConfirmButtonQuery);
-            cancleButton = root.Q<Button>(CancleButtonQuery);
+            confirmButton = root.Q<Button>(_confirmButtonClass);
+            cancleButton = root.Q<Button>(_cancleButtonClass);
 
             confirmButton.RegisterCallback<ClickEvent>(e => OnConfirmed());
             cancleButton.RegisterCallback<ClickEvent>(e => OnCancled());

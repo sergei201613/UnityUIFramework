@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 
 namespace TeaGames.Unity.UIFramework.Runtime
 {
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(UIDocument))]
     public class Widget : MonoBehaviour
     {
