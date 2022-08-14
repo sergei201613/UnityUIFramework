@@ -8,12 +8,12 @@ namespace TeaGames.Unity.UIFramework.Runtime
         public event System.Action Confirmed;
         public event System.Action Cancled;
 
-        protected Button cancleButton;
-        protected Button confirmButton;
-
         [Header("Confirm Popup")]
         [SerializeField] private string _confirmButtonClass = "confirm-popup__confirm-button";
         [SerializeField] private string _cancleButtonClass = "confirm-popup__cancle-button";
+
+        protected Button cancleButton;
+        protected Button confirmButton;
 
         public override void Init(UIManager uiManager)
         {

@@ -6,6 +6,12 @@ namespace TeaGames.Unity.UIFramework.Runtime
 {
     public class Popup : Panel
     {
+        [Header("Popup")]
+        [SerializeField] private string _popupClass = "popup";
+        [SerializeField] private string _textClass = "popup__text";
+        [SerializeField] private string _openedClass = "popup--opened";
+        [SerializeField] private string _hiddenClass = "popup--hidden";
+
         public string Text
         {
             get => label.text;
@@ -15,18 +21,12 @@ namespace TeaGames.Unity.UIFramework.Runtime
         protected VisualElement popup;
         protected Label label;
 
-        [Header("Popup")]
-        [SerializeField] private string _popupClass = "popup";
-        [SerializeField] private string _labelClass = "popup__label";
-        [SerializeField] private string _openedClass = "popup--opened";
-        [SerializeField] private string _hiddenClass = "popup--hidden";
-
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
 
             popup = root.Q(_popupClass);
-            label = root.Q<Label>(_labelClass);
+            label = root.Q<Label>(_textClass);
         }
 
         public void Show(System.Action onComplete = null)
@@ -40,6 +40,11 @@ namespace TeaGames.Unity.UIFramework.Runtime
             popup.RegisterCallback<TransitionEndEvent>(e => onComplete?.Invoke());
             popup.RemoveFromClassList(_openedClass);
             popup.AddToClassList(_hiddenClass);
+        }
+
+        protected override void OnCloseButtonClicked()
+        {
+            uiManager.ClosePopup(this);
         }
 
         private IEnumerator ShowCoroutine()
